@@ -305,13 +305,14 @@ open class LinearRegressionModel : Regressor
             var work : [Double] = [0.0]
             var lwork : __CLPK_integer = -1        //  Ask for the best size of the work array
             var info : __CLPK_integer = 0
-            dgels_(&jobT, &m, &n, &nrhs, &A, &m, &y, &m, &work, &lwork, &info)
+            var m1, m2: __CLPK_integer; m1 = m; m2 = m
+            dgels_(&jobT, &m, &n, &nrhs, &A, &m1, &y, &m2, &work, &lwork, &info)
             if (info != 0 || work[0] < 1) {
                 throw LinearRegressionError.matrixSolutionError
             }
             lwork = __CLPK_integer(work[0])
             work = [Double](repeating: 0.0, count: Int(work[0]))
-            dgels_(&jobT, &m, &n, &nrhs, &A, &m, &y, &m, &work, &lwork, &info)
+            dgels_(&jobT, &m, &n, &nrhs, &A, &m1, &y, &m2, &work, &lwork, &info)
             if (info != 0 || work[0] < 1) {
                 throw LinearRegressionError.matrixSolutionError
             }

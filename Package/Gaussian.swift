@@ -211,7 +211,8 @@ open class MultivariateGaussian {
             var A = Σ       //  Make a copy so it isn't mangled
             var n : __CLPK_integer = __CLPK_integer(dimension)
             var info : __CLPK_integer = 0
-            dpotrf_(&uplo, &n, &A, &n, &info)
+            var n1 = n
+            dpotrf_(&uplo, &n, &A, &n1, &info)
             if (info != 0) { throw GaussianError.inverseError }
             //  Extract sqrtDeterminant from U by multiplying the diagonal  (U is multiplied by Utranspose after factorization)
             for index in 0..<dimension {
@@ -219,7 +220,7 @@ open class MultivariateGaussian {
             }
             
             //  Get the inverse
-            dpotri_(&uplo, &n, &A, &n, &info)
+            dpotri_(&uplo, &n, &A, &n1, &info)
             if (info != 0) { throw GaussianError.inverseError }
             
             //  Convert inverse U into symmetric full matrix for matrix multiply routines
@@ -351,13 +352,14 @@ open class MultivariateGaussian {
             var A = Σ       //  Leave Σ intact
             var eigenValues = [Double](repeating: 0.0, count: dimension)
             var eigenVectors = [Double](repeating: 0.0, count: dimension*dimension)
-            dgesdd_(&jobZ, &n, &n, &A, &n, &eigenValues, &u, &n, &eigenVectors, &n, &work, &lwork, &iwork, &info)
+            var n1, n2, n3, n4: __CLPK_integer; n1 = n; n2 = n; n3 = n; n4 = n
+            dgesdd_(&jobZ, &n, &n1, &A, &n2, &eigenValues, &u, &n3, &eigenVectors, &n4, &work, &lwork, &iwork, &info)
             if (info != 0 || work[0] < 1) {
                 throw GaussianError.errorInSVDParameters
             }
             lwork = __CLPK_integer(work[0])
             work = [Double](repeating: 0.0, count: Int(work[0]))
-            dgesdd_(&jobZ, &n, &n, &A, &n, &eigenValues, &u, &n, &eigenVectors, &n, &work, &lwork, &iwork, &info)
+            dgesdd_(&jobZ, &n, &n1, &A, &n2, &eigenValues, &u, &n3, &eigenVectors, &n4, &work, &lwork, &iwork, &info)
             if (info < 0) {
                 throw GaussianError.errorInSVDParameters
             }

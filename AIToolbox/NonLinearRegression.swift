@@ -521,13 +521,14 @@ open class NonLinearRegression : Regressor
                 var info : __CLPK_integer = 0
                 let jacobianOffset = batchSize * outputIndex * parametersPerOutput      //  Offset to start of Jacobian for this output
                 let residualOffset = batchSize * outputIndex      //  Offset to start of residual vector for this output
-                dgels_(&jobT, &m, &n, &nrhs, &J[jacobianOffset], &m, &r[residualOffset], &m, &work, &lwork, &info)
+                var m1, m2: __CLPK_integer; m1 = m; m2 = m
+                dgels_(&jobT, &m, &n, &nrhs, &J[jacobianOffset], &m1, &r[residualOffset], &m2, &work, &lwork, &info)
                 if (info != 0 || work[0] < 1) {
                     throw NonLinearRegressionError.matrixSolutionError
                 }
                 lwork = __CLPK_integer(work[0])
                 work = [Double](repeating: 0.0, count: Int(work[0]))
-                dgels_(&jobT, &m, &n, &nrhs, &J[jacobianOffset], &m, &r[residualOffset], &m, &work, &lwork, &info)
+                dgels_(&jobT, &m, &n, &nrhs, &J[jacobianOffset], &m1, &r[residualOffset], &m2, &work, &lwork, &info)
                 if (info != 0 || work[0] < 1) {
                     throw NonLinearRegressionError.matrixSolutionError
                 }

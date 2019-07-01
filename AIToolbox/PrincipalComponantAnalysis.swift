@@ -119,13 +119,14 @@ open class PCA {
         let iworkSize = 8 * __CLPK_integer(min(m,n))
         var iwork = [__CLPK_integer](repeating: 0, count: Int(iworkSize))
         var info : __CLPK_integer = 0
-        dgesdd_(&jobZ, &m, &n, &X, &m, &eigenValues, &u, &m, &vTranspose, &n, &work, &lwork, &iwork, &info)
+        var n1, m1, m2: __CLPK_integer; n1 = n; m1 = m; m2 = m
+        dgesdd_(&jobZ, &m, &n, &X, &m1, &eigenValues, &u, &m2, &vTranspose, &n1, &work, &lwork, &iwork, &info)
         if (info != 0 || work[0] < 1) {
             throw PCAError.errorInSVDParameters
         }
         lwork = __CLPK_integer(work[0])
         work = [Double](repeating: 0.0, count: Int(work[0]))
-        dgesdd_(&jobZ, &m, &n, &X, &m, &eigenValues, &u, &m, &vTranspose, &n, &work, &lwork, &iwork, &info)
+        dgesdd_(&jobZ, &m, &n, &X, &m1, &eigenValues, &u, &m2, &vTranspose, &n1, &work, &lwork, &iwork, &info)
         if (info < 0) {
             throw PCAError.errorInSVDParameters
         }
