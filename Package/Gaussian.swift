@@ -83,7 +83,7 @@ open class Gaussian {
     static var y2 = 0.0
     static var use_last = false
     ///  static Function to get a random value for a given distribution
-    open static func gaussianRandom(_ mean : Double, standardDeviation : Double) -> Double
+    public static func gaussianRandom(_ mean : Double, standardDeviation : Double) -> Double
     {
         var y1 : Double
         if (use_last)		        /* use value from previous call */
@@ -119,7 +119,7 @@ open class Gaussian {
     static var y2Float: Float = 0.0
     static var use_lastFloat = false
     ///  static Function to get a random value for a given distribution
-    open static func gaussianRandomFloat(_ mean : Float, standardDeviation : Float) -> Float
+    public static func gaussianRandomFloat(_ mean : Float, standardDeviation : Float) -> Float
     {
         var y1 : Float
         if (use_last)		        /* use value from previous call */
