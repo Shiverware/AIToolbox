@@ -339,13 +339,15 @@ class LSTMTests: XCTestCase {
     }
     
     func convertStringToSequence(_ grammerString: String) -> DataSet {
-        var characters = grammerString.characters.map { String($0) }
-        let length = characters.count
-        characters.append("x")      //  Add an unused character for the prediction target at the end of the grammer string
+        var chars = [String]()
+        for char in grammerString { chars.append(String(char))}
+        //var characters = grammerString.characters.map { String($0) }
+        let length = chars.count
+        chars.append("x")      //  Add an unused character for the prediction target at the end of the grammer string
         let dataSet = DataSet(dataType: .regression, inputDimension: 7, outputDimension: 7)
         for index in 0..<length {
-            let inputs = stateLetterToDoubleArray(characters[index])
-            let outputs = stateLetterToDoubleArray(characters[index+1])
+            let inputs = stateLetterToDoubleArray(chars[index])
+            let outputs = stateLetterToDoubleArray(chars[index+1])
             do {
                 try dataSet.addDataPoint(input: inputs, output: outputs)
             }
