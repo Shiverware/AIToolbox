@@ -21,10 +21,12 @@ let package = Package(
         .target(
             name: "AIToolbox",
 	    dependencies: [],
-	    path: ["AIToolbox", "Package"]),
+	    path: ".",
+	    publicHeaders: "AIToolbox",
+	    sources: ["AIToolbox", "Package"]),
         .testTarget(
             name: "AIToolboxTests",
             dependencies: ["AIToolbox"],
-	    path: ["AIToolboxTests"])
+	    path: "AIToolboxTests")
     ]
 )
