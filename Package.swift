@@ -23,7 +23,7 @@ let package = Package(
 	    dependencies: [],
 	    path: ".",
 	    sources: ["AIToolbox", "Package"],
-	    publicHeaders: "AIToolbox"),
+	    publicHeadersPath: "AIToolbox"),
         .testTarget(
             name: "AIToolboxTests",
             dependencies: ["AIToolbox"],
