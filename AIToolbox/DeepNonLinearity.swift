@@ -4,7 +4,7 @@
 //
 //  Created by Kevin Coble on 4/13/17.
 //  Copyright © 2017 Kevin Coble. All rights reserved.
-//
+//  Converted to Swift 4.2 by Maxim Vasin, 01.07.2019
 
 import Foundation
 import Accelerate

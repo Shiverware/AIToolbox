@@ -4,7 +4,7 @@
 //
 //  Created by Kevin Coble on 12/6/15.
 //  Copyright © 2015 Kevin Coble. All rights reserved.
-//
+//  Converted to Swift 4.2 by Maxim Vasin, 01.07.2019
 
 import Foundation
 

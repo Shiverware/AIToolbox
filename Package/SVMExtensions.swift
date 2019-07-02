@@ -4,9 +4,10 @@
 //
 //  Created by Kevin Coble on 1/17/16.
 //  Copyright © 2016 Kevin Coble. All rights reserved.
-//
+//  Converted to Swift 4.2 by Maxim Vasin, 01.07.2019
 //  This file contains extensions to the SVMModel class to get it to play nicely with the rest of the library
 //  This code doesn't go in the SVM file, as I want to keep that close to the original LIBSVM source material
+
 
 import Foundation
 

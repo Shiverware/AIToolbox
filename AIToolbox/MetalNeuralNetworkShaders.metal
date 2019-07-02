@@ -4,7 +4,7 @@
 //
 //  Created by Kevin Coble on 1/7/16.
 //  Copyright © 2016 Kevin Coble. All rights reserved.
-//
+//  Converted to Swift 4.2 by Maxim Vasin, 01.07.2019
 
 //  This is duplicated as a string in the .swift version of the file
 //  This file is left as a way to test the compile of the shaders at build time

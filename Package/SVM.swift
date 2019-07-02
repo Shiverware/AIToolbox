@@ -8,7 +8,7 @@
 //  Copyright (c) 2000-2014 Chih-Chung Chang and Chih-Jen Lin
 //  All rights reserved
 //  See LIBSVM copyright notice for details
-//
+//  Converted to Swift 4.2 by Maxim Vasin, 01.07.2019
 
 import Foundation
 
