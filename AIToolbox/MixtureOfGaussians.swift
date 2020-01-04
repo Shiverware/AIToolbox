@@ -382,7 +382,7 @@ open class MixtureOfGaussians : Regressor
                         sphericalCovarianceValue += membershipWeights[term][point] * dotProduct
                     }
                     sphericalCovarianceValue /= (weightTotals[term] * Double(inputDimension))
-                    var Σ = [Double](repeating: sphericalCovarianceValue, count: inputDimension)
+                    let Σ = [Double](repeating: sphericalCovarianceValue, count: inputDimension)
                     if (inputDimension == 1) {
                         gaussians[term].setVariance(Σ[0])
                     }
