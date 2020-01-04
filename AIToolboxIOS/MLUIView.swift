@@ -947,10 +947,10 @@ open class MLViewAxisLabel: MLViewItem {
             labelParaStyle.lineSpacing = 0.0
             labelParaStyle.alignment = NSTextAlignment.center
             let labelAttributes = [
-                NSForegroundColorAttributeName: XAxisColor,
-                NSParagraphStyleAttributeName: labelParaStyle,
-                NSFontAttributeName: labelFont!
-            ] as [String : Any]
+              NSAttributedString.Key.foregroundColor: XAxisColor,
+              NSAttributedString.Key.paragraphStyle: labelParaStyle,
+              NSAttributedString.Key.font: labelFont!
+              ] as [NSAttributedString.Key : Any]
             
             let format = String(format: "%%.%df", XAxisLabelDecimalDigits)
             XAxisColor.set()
@@ -967,7 +967,7 @@ open class MLViewAxisLabel: MLViewItem {
                 path.stroke()
                 let value = (maxX - minX) * Double(i) / Double(MajorTickDivisions) + minX
                 let label = String(format: format, value)
-                let labelSize = label.size(attributes: labelAttributes)
+                let labelSize = label.size(withAttributes: labelAttributes)
                 let labelRect = CGRect(x: xpos - labelSize.width * 0.5, y: yPos + 2.0, width: labelSize.width, height: labelSize.height)
                 label.draw(in: labelRect, withAttributes: labelAttributes)
                 if (MinorTicksDivisionsPerMajorTick > 1) {
@@ -988,10 +988,10 @@ open class MLViewAxisLabel: MLViewItem {
             labelParaStyle.lineSpacing = 0.0
             labelParaStyle.alignment = NSTextAlignment.right
             let labelAttributes = [
-                NSForegroundColorAttributeName: YAxisColor,
-                NSParagraphStyleAttributeName: labelParaStyle,
-                NSFontAttributeName: labelFont!
-            ] as [String : Any]
+              NSAttributedString.Key.foregroundColor: YAxisColor,
+              NSAttributedString.Key.paragraphStyle: labelParaStyle,
+              NSAttributedString.Key.font: labelFont!
+            ] as [NSAttributedString.Key : Any]
             
             let format = String(format: "%%.%df", YAxisLabelDecimalDigits)
             YAxisColor.set()
@@ -1008,7 +1008,7 @@ open class MLViewAxisLabel: MLViewItem {
                 path.stroke()
                 let value = (maxY - minY) * Double(i) / Double(MajorTickDivisions) + minY
                 let label = String(format: format, value)
-                let labelSize = label.size(attributes: labelAttributes)
+                let labelSize = label.size(withAttributes: labelAttributes)
                 let labelRect = CGRect(x: xOffset, y: ypos - (labelSize.height * 0.5), width: yMaxLabelWidth, height: labelSize.height)
                 label.draw(in: labelRect, withAttributes: labelAttributes)
                 if (MinorTicksDivisionsPerMajorTick > 1) {
@@ -1037,12 +1037,13 @@ open class MLViewAxisLabel: MLViewItem {
         labelParaStyle.lineSpacing = 0.0
         labelParaStyle.alignment = NSTextAlignment.center
         let labelAttributes = [
-            NSForegroundColorAttributeName: XAxisColor,
-            NSParagraphStyleAttributeName: labelParaStyle,
-            //NSTextAlignment: textalign,
-            NSFontAttributeName: labelFont!
-        ] as [String : Any]
-        let labelSize = "123.4".size(attributes: labelAttributes)
+          NSAttributedString.Key.foregroundColor: XAxisColor,
+          NSAttributedString.Key.paragraphStyle: labelParaStyle,
+          //NSTextAlignment: textalign,
+          NSAttributedString.Key.font: labelFont!
+        ] as [NSAttributedString.Key : Any]
+      
+        let labelSize = "123.4".size(withAttributes: labelAttributes)
         
         xAxisHeight = XAxisMajorTickHeight + 2.0     //  Tick plus margin
         xAxisHeight += labelSize.height
@@ -1059,19 +1060,18 @@ open class MLViewAxisLabel: MLViewItem {
         labelParaStyle.lineSpacing = 0.0
         labelParaStyle.alignment = NSTextAlignment.center
         let labelAttributes = [
-            NSForegroundColorAttributeName: XAxisColor,
-            NSParagraphStyleAttributeName: labelParaStyle,
-            //NSTextAlignment: textalign,
-            NSFontAttributeName: labelFont!
-        ] as [String : Any]
-        
+          NSAttributedString.Key.foregroundColor: XAxisColor,
+          NSAttributedString.Key.paragraphStyle: labelParaStyle,
+          //NSTextAlignment: textalign,
+          NSAttributedString.Key.font: labelFont!
+        ] as [NSAttributedString.Key : Any]
         //  Check the width of each label
         yMaxLabelWidth = 0.0
         let format = String(format: "%%.%df", YAxisLabelDecimalDigits)
         for i in 0...MajorTickDivisions {
             let value = (maxY - minY) * Double(i) / Double(MajorTickDivisions) + minY
             let label = String(format: format, value)
-            let labelSize = label.size(attributes: labelAttributes)
+            let labelSize = label.size(withAttributes: labelAttributes)
             if (labelSize.width > yMaxLabelWidth) { yMaxLabelWidth = labelSize.width }
         }
         
@@ -1128,7 +1128,7 @@ open class MLLegendItem {
         self.label = label
     }
     
-    open static func createClassLegendArray(_ labelStart: String, classificationDataSet: MLViewClassificationDataSet) -> [MLLegendItem] {
+    public static func createClassLegendArray(_ labelStart: String, classificationDataSet: MLViewClassificationDataSet) -> [MLLegendItem] {
         var array : [MLLegendItem] = []
         
         //  Iterate through each class label
@@ -1192,26 +1192,27 @@ open class MLViewLegend: MLViewItem {
         paraStyle.lineSpacing = 6.0
         paraStyle.alignment = NSTextAlignment.center
         let titleAttributes = [
-            NSForegroundColorAttributeName: fontColor,
-            NSParagraphStyleAttributeName: paraStyle,
-            //NSTextAlignment: textalign,
-            NSFontAttributeName: titleFont!
-        ] as [String : Any]
+          NSAttributedString.Key.foregroundColor: fontColor,
+          NSAttributedString.Key.paragraphStyle: paraStyle,
+          //NSTextAlignment: textalign,
+          NSAttributedString.Key.font: titleFont!
+        ] as [NSAttributedString.Key : Any]
+      
         let labelParaStyle = NSMutableParagraphStyle()
         labelParaStyle.lineSpacing = 6.0
         labelParaStyle.alignment = NSTextAlignment.right
         let labelAttributes = [
-            NSForegroundColorAttributeName: fontColor,
-            NSParagraphStyleAttributeName: labelParaStyle,
-            //NSTextAlignment: textalign,
-            NSFontAttributeName: itemFont!
-        ] as [String : Any]
-        
+          NSAttributedString.Key.foregroundColor: fontColor,
+          NSAttributedString.Key.paragraphStyle: labelParaStyle,
+          //NSTextAlignment: textalign,
+          NSAttributedString.Key.font: itemFont!
+        ] as [NSAttributedString.Key : Any]
+      
         //  Get the required size of the legend title
         var titleSize = CGSize.zero
         var legendSize = CGSize.zero
         if (!title.isEmpty) {
-            titleSize = title.size(attributes: titleAttributes)
+            titleSize = title.size(withAttributes: titleAttributes)
             legendSize = titleSize
         }
         
@@ -1219,7 +1220,7 @@ open class MLViewLegend: MLViewItem {
         var maxLabelSize : CGFloat = 0.0
         var maxSymbolSize : CGFloat = 0.0
         for item in items {
-            let labelSize = item.label.size(attributes: titleAttributes)
+            let labelSize = item.label.size(withAttributes: titleAttributes)
             var itemHeight = labelSize.height
             if (labelSize.width > maxLabelSize) { maxLabelSize = labelSize.width }
             if let symbol = item.symbol {
@@ -1416,7 +1417,7 @@ open class MLView: UIView {
     }
     
     ///  Routine to round/extend a scale to more 'human-readable' values.
-    open static func roundScale(_ min: Double, max: Double, logScale: Bool = false) -> (min: Double, max: Double) {
+    public static func roundScale(_ min: Double, max: Double, logScale: Bool = false) -> (min: Double, max: Double) {
 
         var Y : Double
         var Z : Double
